@@ -5,14 +5,24 @@ import os
 
 
 class ConnectionFactory(object):
-    PATH_TO_MYSQL_JAR = 'mysql-connector-java-5.1.29-bin.jar'
+    CONNECTORS = {
+        'my-sql': {
+            'jar-file': 'mysql-connector-java-5.1.29-bin.jar',
+            'driver': "com.mysql.jdbc.Driver",
+            'url': "jdbc:mysql://localhost/",
+        }
+    }
 
     @classmethod
     def get_mysql_connection(cls, database, user, password):
+        return cls.get_connection('my-sql', database, user, password)
 
-        importJar(cls.get_jar_path(cls.PATH_TO_MYSQL_JAR))
-        java.lang.Class.forName("com.mysql.jdbc.Driver")
-        url = "jdbc:mysql://localhost/"
+    @classmethod
+    def get_connection(cls, database_engine, database, user, password):
+        options = cls.CONNECTORS[database_engine]
+        importJar(cls.get_jar_path(options['jar-file']))
+        java.lang.Class.forName(options['driver'])
+        url = options['url']
         return DriverManager.getConnection("%s%s?user=%s&password=%s" % (url, database, user, password))
 
     @classmethod

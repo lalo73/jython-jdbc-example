@@ -4,7 +4,6 @@ from utils.connections import ConnectionFactory
 
 
 class ConnectionTest(unittest.TestCase):
-
     def setUp(self):
         self.connection = None
         self.prepared_statement = None
@@ -13,7 +12,7 @@ class ConnectionTest(unittest.TestCase):
 
         try:
             self.connection = connection = self.get_connection()
-            sql_query= "INSERT INTO Aerolinea (NOMBRE, CODIGO) VALUES (?,?)"
+            sql_query = "INSERT INTO Aerolinea (NOMBRE, CODIGO) VALUES (?,?)"
             self.prepared_statement = prepared_statement = connection.prepareStatement(sql_query)
             prepared_statement.setString(1, "UnaAerolinea")
             prepared_statement.setString(2, "UNA")
@@ -49,8 +48,8 @@ class ConnectionTest(unittest.TestCase):
         database, user, password = "Epers_Ej1", "root", "root"
         return ConnectionFactory.get_mysql_connection(database, user, password)
 
+
 if __name__ == '__main__':
     unittest.main()
-
 
 __author__ = 'lalo'
