@@ -10,12 +10,21 @@ class ConnectionFactory(object):
             'jar-file': 'mysql-connector-java-5.1.29-bin.jar',
             'driver': "com.mysql.jdbc.Driver",
             'url': "jdbc:mysql://localhost/",
-        }
+        },
+        'postgresql': {
+            'jar-file': 'postgresql-9.3-1101.jdbc41.jar',
+            'driver': "org.postgresql.Driver",
+            'url': "jdbc:postgresql://localhost/",
+        },
     }
 
     @classmethod
     def get_mysql_connection(cls, database, user, password):
         return cls.get_connection('my-sql', database, user, password)
+
+    @classmethod
+    def get_postgresql_connection(cls, database, user, password):
+        return cls.get_connection('postgresql', database, user, password)
 
     @classmethod
     def get_connection(cls, database_engine, database, user, password):
